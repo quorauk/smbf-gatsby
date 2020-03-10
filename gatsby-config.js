@@ -1,10 +1,21 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
+    title: `Superminerbattlefarm`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    author: `@quorauk`,
   },
   plugins: [
+    {
+      resolve: `gatsby-source-facebook`,
+      options: {
+        places: [`202326136471980`], // Can be either a numeric ID or the URL ID
+        params: {
+          fields: 'events { name, cover, attending_count, start_time, end_time}, posts { message, created_time }', // See Facebooks API to see what you can query for
+        },
+        key: "", // You will need to create a Facebook application and go through review in order to get an API token.
+        version: '6.0', // The version of the graph API to use. Defaults to 5.0
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
