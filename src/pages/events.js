@@ -14,8 +14,9 @@ const SecondPage = () => {
         edges {
           node {
             name
-            start_time
-            end_time
+            start_date: start_time(formatString: "MMM Do YYYY")
+            start_time: start_time(formatString: "ha")
+            end_time(formatString: "ha")
             cover { source }
             internal { content }
           }
@@ -25,10 +26,10 @@ const SecondPage = () => {
   `)
 
   const StyledEventContainer = styled.div`
+    padding-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-top: 30px;
   `
 
   return <Layout>

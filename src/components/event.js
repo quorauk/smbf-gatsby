@@ -1,22 +1,32 @@
 import React from "react"
-import PropTypes from "prop-types"
 import { Card, Button } from "react-bootstrap"
-import moment from "moment"
 import styled from "styled-components"
+
+const DropShadowCard = styled(Card)`
+  box-shadow: 3px 10px 41px -19px rgba(0,0,0,0.75);
+`
 
 export default ({ eventData }) => {
     const id = JSON.parse(eventData.internal.content).id
     const url = `https://facebook.com/events/${id}`
 
-    return (<Card style={{'margin-bottom': '20px', width: '18rem'}}>
+    const filterName = () => {
+        const nameRegex = /Waistman Weeklies #(\d+)/
+        const result = nameRegex.exec(eventData.name)
+        if (result.length === 2) {
+            return `Waistman Weeklies #${result[1]}`
+        }
+        return eventData.name
+    }
+
+    return (<DropShadowCard bg="dark" border="secondary" text="light" style={{'margin-bottom': '20px', width: '18rem'}}>
     <Card.Img variant="top" src={eventData.cover.source} />
     <Card.Body>
-        <Card.Title>{eventData.name}</Card.Title>
+        <Card.Title>{filterName()}</Card.Title>
             <Card.Text>
-                {moment(eventData.start_time).format("MMM Do YYYY - ha")}
-                - {moment(eventData.end_time).format("ha")}
+                {`${eventData.start_date} ${eventData.start_time} - ${eventData.end_time}`}
             </Card.Text>
-            <Button variant="primary" href={url}>View Event</Button>
+            <Button variant="outline-secondary" href={url}>View Event</Button>
         </Card.Body>
-    </Card>)
+    </DropShadowCard>)
 }

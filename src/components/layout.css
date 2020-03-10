@@ -621,3 +621,8 @@ pre tt:after {
     font-size: 100%;
   }
 }
+
+footer {
+  background-color: black;
+  color: grey;
+}
