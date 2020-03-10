@@ -1,7 +1,10 @@
+require("dotenv").config({
+  path: ".env"
+})
 module.exports = {
   siteMetadata: {
     title: `Superminerbattlefarm`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    description: `Southwest Fighting Game community.`,
     author: `@quorauk`,
   },
   plugins: [
@@ -12,7 +15,7 @@ module.exports = {
         params: {
           fields: 'events { name, cover, attending_count, start_time, end_time}, posts { message, created_time }', // See Facebooks API to see what you can query for
         },
-        key: "", // You will need to create a Facebook application and go through review in order to get an API token.
+        key: process.env.FACEBOOK_KEY,
         version: '6.0', // The version of the graph API to use. Defaults to 5.0
       },
     },
