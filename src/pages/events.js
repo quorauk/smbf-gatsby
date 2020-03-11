@@ -74,7 +74,7 @@ const SecondPage = () => {
   const groupedYoutube = groupYoutube();
 
   return <Layout>
-    <SEO title="Page two" />
+    <SEO title="Events" />
     <Container>
       <StyledEventContainer>
         {
