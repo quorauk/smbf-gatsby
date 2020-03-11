@@ -51,9 +51,12 @@ const HeroSubTitle = styled.p`
   font-size: 48px;
 `
 
+const CTAs = styled.div`
+`
+
 const EventCTA = styled(Button)`
   color: #FFFFFF;
-  margin: 30px auto;
+  margin: 20px 10px;
   font-family: 'Roboto Condensed', sans-serif;
 `
 
@@ -97,10 +100,15 @@ const Image = ({ name, nextEvent }) => {
         <HeroTitle className="d-blcok d-sm-none">SMBF</HeroTitle>
         <HeroSubTitle className="d-none d-sm-block">Southwest Fighting Game Community</HeroSubTitle>
         <HeroSubTitle className="d-blcok d-sm-none">Southwest FGC</HeroSubTitle>
-        <EventCTA href={ctaLink()} variant="dark">{ nextEventUpcoming() ? 
-          `Next Event: ${nextEvent.name}` : 
-          "Follow us for updates"}
-        </EventCTA>
+        <CTAs>
+          <EventCTA href={ctaLink()} variant="secondary">{ nextEventUpcoming() ?
+            `Next Event: ${nextEvent.name}` :
+            "Follow us for updates"}
+          </EventCTA>
+          <EventCTA href={"/events"} variant="dark">
+            View Past events
+          </EventCTA>
+        </CTAs>
       </HeroTextContainer>
     </Gradient>
     // </Gradient>
