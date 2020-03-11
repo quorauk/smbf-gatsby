@@ -45,6 +45,8 @@ jobs:
       run: yarn build
       env: # Or as an environment variable
         FACEBOOK_KEY: ${{ secrets.FACEBOOK_KEY }}
+        YOUTUBE_KEY: ${{ secrets.YOUTUBE_KEY }}
+        YOUTUBE_CHANNEL_ID: ${{ secrets.YOUTUBE_CHANNEL_ID }}
 
     - name: Build and Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@releases/v3

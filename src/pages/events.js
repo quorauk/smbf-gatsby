@@ -22,6 +22,15 @@ const SecondPage = () => {
           }
         }
       }
+      allYoutubeVideo {
+        edges {
+          node {
+            id
+            title
+            videoId
+          }
+        }
+      }
     }
   `)
 
@@ -32,13 +41,45 @@ const SecondPage = () => {
     justify-content: space-around;
   `
 
+  const groupYoutube = () => (
+    data.allYoutubeVideo.edges.reduce((acc, entry) => {
+      console.log(acc)
+      const nameRegex = /Waistman Weeklies #(\d+)/
+      const result = nameRegex.exec(entry.node.title)
+      if (result != null && result.length === 2) {
+        var key = `${result[1]}`
+        var entries = acc[key]
+        if (entries === undefined) {
+          entries = [entry.node]
+        } else {
+          entries.push(entry.node)
+        }
+        acc[key] = entries
+      }
+      return acc
+    }, {})
+  )
+
+  const FBEvents = () => {
+    return data.allFacebookEvents.edges.map((edgedata) => {
+      const nameRegex = /Waistman Weeklies #(\d+)/
+      const result = nameRegex.exec(edgedata.node.name)
+      if (result.length === 2) {
+        edgedata.node.number = result[1]
+      }
+      return edgedata.node
+    })
+  }
+
+  const groupedYoutube = groupYoutube();
+
   return <Layout>
     <SEO title="Page two" />
     <Container>
       <StyledEventContainer>
         {
-          data.allFacebookEvents.edges && data.allFacebookEvents.edges.map((edgedata) =>
-            <Event eventData={edgedata.node}/>
+          FBEvents().map((event) =>
+            <Event youtubeData={groupedYoutube[event.number]} eventData={event}/>
           )
         }
       </StyledEventContainer>
