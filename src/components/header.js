@@ -19,6 +19,7 @@ const Header = ({ siteTitle }) => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/events">Events</Nav.Link>
+          <Nav.Link href="/#about">About</Nav.Link>
         </Nav>
         <Nav>
           <Nav.Link href="https://discord.gg/ud6cAnU">

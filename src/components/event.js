@@ -1,10 +1,7 @@
 import React from "react"
-import { Card, Button, Dropdown } from "react-bootstrap"
+import { Button, Dropdown } from "react-bootstrap"
+import { Card } from "./cards"
 import styled from "styled-components"
-
-const DropShadowCard = styled(Card)`
-  box-shadow: 3px 10px 41px -19px rgba(0,0,0,0.75);
-`
 
 const ButtonBody = styled(Card.Body)`
     display: flex;
@@ -28,7 +25,7 @@ export default ({ eventData, youtubeData }) => {
         return eventData.name
     }
 
-    return (<DropShadowCard bg="dark" border="secondary" text="light" style={{'margin-bottom': '20px', width: '18rem'}}>
+    return (<Card bg="dark" border="secondary" text="light" style={{'margin-bottom': '20px', width: '18rem'}}>
     <Card.Img variant="top" src={eventData.cover.source} />
     <Card.Body>
         <Card.Title>{filterName()}</Card.Title>
@@ -53,5 +50,5 @@ export default ({ eventData, youtubeData }) => {
                 </DropdownButton>
             }
         </ButtonBody>
-    </DropShadowCard>)
+    </Card>)
 }

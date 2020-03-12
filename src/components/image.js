@@ -2,7 +2,6 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import { Button } from "react-bootstrap"
-import moment from "moment"
 import BackgroundImage from "gatsby-background-image";
 
 /*
@@ -41,14 +40,16 @@ const HeroTextContainer = styled.div`
   font-family: 'Permanent Marker', cursive;
 `
 
-const HeroTitle = styled.p`
+const HeroTitle = styled.h1`
   margin: 0 auto;
   font-size: 72px;
+  font-family: 'Permanent Marker', cursive;
 `
 
-const HeroSubTitle = styled.p`
+const HeroSubTitle = styled.h2`
   margin: 0 auto;
   font-size: 48px;
+  font-family: 'Permanent Marker', cursive;
 `
 
 const CTAs = styled.div`
@@ -60,7 +61,7 @@ const EventCTA = styled(Button)`
   font-family: 'Roboto Condensed', sans-serif;
 `
 
-const Image = ({ name, nextEvent }) => {
+const Image = ({ name, eventUpcoming, nextEvent }) => {
   const data = useStaticQuery(graphql`
     query {
       placeholderImage: file(relativePath: { eq: "event-hero.jpg" }) {
@@ -73,15 +74,9 @@ const Image = ({ name, nextEvent }) => {
     }
   `)
 
-
-  const nextEventUpcoming = () => {
-    return moment().isBefore(moment(nextEvent.end_date))
-  }
-
   const ctaLink = () => {
-    if (nextEventUpcoming()) {
-      const id = JSON.parse(nextEvent.internal.content).id
-      return `https://facebook.com/events/${id}`
+    if (eventUpcoming) {
+      return `/#next-event`
     } else {
       return "https://facebook.com/Superminerbattlefarm"
     }
@@ -101,7 +96,7 @@ const Image = ({ name, nextEvent }) => {
         <HeroSubTitle className="d-none d-sm-block">Southwest Fighting Game Community</HeroSubTitle>
         <HeroSubTitle className="d-blcok d-sm-none">Southwest FGC</HeroSubTitle>
         <CTAs>
-          <EventCTA href={ctaLink()} variant="secondary">{ nextEventUpcoming() ?
+          <EventCTA href={ctaLink()} variant="secondary">{ eventUpcoming ?
             `Next Event: ${nextEvent.name}` :
             "Follow us for updates"}
           </EventCTA>

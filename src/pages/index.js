@@ -4,8 +4,10 @@ import { useStaticQuery, graphql } from "gatsby"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
-import { Container } from "react-bootstrap"
+import { Container, Button } from "react-bootstrap"
+import { Card } from "../components/cards"
 import styled from "styled-components"
+import moment from "moment"
 
 const FullscreenContainer = styled(Container)`
   max-width: 100%;
@@ -13,11 +15,16 @@ const FullscreenContainer = styled(Container)`
   padding: 0;
 `
 
+const HomeCard = styled(Card)`
+  margin: 20px auto;
+`
+
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     query ClosestEventQuery {
       facebookEvents {
         name
+        cover { source }
         end_date: end_time
         start_date: start_time(formatString: "MMM Do YYYY")
         start_time: start_time(formatString: "ha")
@@ -26,12 +33,42 @@ const IndexPage = () => {
       }
     }
   `)
+
+  const nextEventUpcoming = () => {
+    return moment().isBefore(moment(data.facebookEvents.end_date))
+  }
+
+  const ctaLink = () => {
+    const id = JSON.parse(data.facebookEvents.internal.content).id
+    return `https://facebook.com/events/${id}`
+  }
+
   return (<Layout>
     <FullscreenContainer>
       <SEO title="Home" />
-      <Image nextEvent={data.facebookEvents}/>
-    </FullscreenContainer>
-  </Layout>)
+      <Image eventUpcoming={nextEventUpcoming()} nextEvent={data.facebookEvents}/>
+      {
+        nextEventUpcoming() &&
+          (<HomeCard id="next-event" bg="dark" border="secondary" text="light" style={{ 'max-width': '1000px' }}>
+            <Card.Img variant="top" src={`${data.facebookEvents.cover.source}`} />
+            <Card.Body style={{'text-align': 'center'}}>
+              <Card.Title>Next Event: {`${data.facebookEvents.name}`}</Card.Title>
+              <Button href={ctaLink()} variant="outline-light">View On Facebook</Button>
+            </Card.Body>
+          </HomeCard>)
+      }
+      <HomeCard id="about" bg="dark" border="secondary" text="light" style={{ 'max-width': '1000px' }}>
+        <Card.Body>
+          <Card.Title>About Us</Card.Title>
+          <Card.Text>
+            Super Miner Battle Farm is a community of fighting game players based in South West England and Wales.
+            We are a friendly and welcoming group of people with a good sense of humour and a desire to improve and support the offline scene in the UK.
+            We host weekly sessions and monthly tournaments in Bristol, as well as other events in the Wales area.
+          </Card.Text>
+        </Card.Body>
+    </HomeCard>
+  </FullscreenContainer>
+</Layout>)
 }
 
 export default IndexPage
