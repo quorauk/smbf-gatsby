@@ -37,10 +37,10 @@ export default ({ eventData, youtubeData }) => {
         </Card.Text>
         </Card.Body>
         <ButtonBody>
-            <Button variant="outline-secondary" href={url}>View Event</Button>
+            <Button variant="secondary" href={url}>View Event</Button>
             { youtubeData && 
                 <DropdownButton>
-                    <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                    <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                         Event Videos
                     </Dropdown.Toggle>
                     <Dropdown.Menu id="dropdown-basic-button" title="Dropdown button">
