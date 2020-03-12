@@ -6,6 +6,7 @@ module.exports = {
     title: `Superminerbattlefarm`,
     description: `Southwest Fighting Game community.`,
     author: `@quorauk`,
+    siteUrl: `https://superminerbattle.farm`
   },
   plugins: [
     {
@@ -30,6 +31,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -56,6 +58,14 @@ module.exports = {
         // replace "UA-XXXXXXXXX-X" with your own Tracking ID
         trackingId: "UA-160403649-1",
       },
+    },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://superminerbattle.farm',
+        sitemap: 'https://superminerbattle.farm/sitemap.xml',
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
