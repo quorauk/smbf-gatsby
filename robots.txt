@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://superminerbattle.farm/sitemap.xml
+Host: https://superminerbattle.farm
