@@ -25,7 +25,7 @@ module.exports = {
     {
       resolve: `gatsby-source-challonge`,
       options: {
-        api_keys: process.env.CHALLONGE_KEYS.split(",")
+        api_keys: process.env.CHALLONGE_KEYS ? process.env.CHALLONGE_KEYS.split(",") : ""
       }
     },
     {
