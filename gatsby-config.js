@@ -23,6 +23,12 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
     {
+      resolve: `gatsby-source-challonge`,
+      options: {
+        api_keys: process.env.CHALLONGE_KEYS.split(",")
+      }
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,

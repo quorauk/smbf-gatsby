@@ -9,6 +9,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/react-fontawesome": "^0.1.9",
+    "axios": "^0.19.2",
     "babel-plugin-styled-components": "^1.10.7",
     "bootstrap": "^4.4.1",
     "dotenv": "^8.2.0",

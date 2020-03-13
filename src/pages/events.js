@@ -31,6 +31,19 @@ const SecondPage = () => {
           }
         }
       }
+      allChallongeTournament(filter: {isWaistmanWeeklies: {eq: true}}) {
+        nodes {
+          name
+          game_name
+          waistmansNumber
+          participants {
+            participant {
+              name
+              final_rank
+            }
+          }
+        }
+      }
     }
   `)
 
@@ -43,7 +56,6 @@ const SecondPage = () => {
 
   const groupYoutube = () => (
     data.allYoutubeVideo.edges.reduce((acc, entry) => {
-      console.log(acc)
       const nameRegex = /Waistman Weeklies #(\d+)/
       const result = nameRegex.exec(entry.node.title)
       if (result != null && result.length === 2) {
@@ -60,6 +72,20 @@ const SecondPage = () => {
     }, {})
   )
 
+  const groupChallonge = () => {
+    return data.allChallongeTournament.nodes.reduce((acc, entry) => {
+      var key = entry.waistmansNumber
+      var entries = acc[key]
+      if (entries === undefined) {
+        entries = [entry]
+      } else {
+        entries.push(entry)
+      }
+      acc[key] = entries
+      return acc
+    }, {})
+  }
+
   const FBEvents = () => {
     return data.allFacebookEvents.edges.map((edgedata) => {
       const nameRegex = /Waistman Weeklies #(\d+)/
@@ -72,6 +98,8 @@ const SecondPage = () => {
   }
 
   const groupedYoutube = groupYoutube();
+  const groupedChallonge = groupChallonge();
+  console.log(groupedChallonge)
 
   return <Layout>
     <SEO title="Events" />
@@ -79,7 +107,7 @@ const SecondPage = () => {
       <StyledEventContainer>
         {
           FBEvents().map((event) =>
-            <Event youtubeData={groupedYoutube[event.number]} eventData={event}/>
+            <Event challongeData={groupedChallonge[event.number]} youtubeData={groupedYoutube[event.number]} eventData={event}/>
           )
         }
       </StyledEventContainer>
