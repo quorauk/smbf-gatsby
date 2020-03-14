@@ -71,7 +71,7 @@ export default ({ eventData, challongeData, youtubeData }) => {
             </Row>
             <Row>
                 <ButtonBody>
-                    <Button variant="secondary" href={url}>View Event</Button>
+                    <Button variant="secondary" style={{"margin-left": "10px"}} href={url}>View Event</Button>
                     { youtubeData && 
                         <DropdownButton>
                             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
