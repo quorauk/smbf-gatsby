@@ -12,9 +12,9 @@ module.exports = {
     {
       resolve: `gatsby-source-facebook`,
       options: {
-        places: [`202326136471980`], // Can be either a numeric ID or the URL ID
+        places: [202326136471980], // Can be either a numeric ID or the URL ID
         params: {
-          fields: 'events { name, cover, attending_count, start_time, end_time}, posts { message, created_time }', // See Facebooks API to see what you can query for
+          fields: 'events { name, cover, attending_count, start_time, end_time }', // See Facebooks API to see what you can query for
         },
         key: process.env.FACEBOOK_KEY,
         version: '6.0', // The version of the graph API to use. Defaults to 5.0
@@ -72,7 +72,8 @@ module.exports = {
         sitemap: 'https://superminerbattle.farm/sitemap.xml',
         policy: [{ userAgent: '*', allow: '/' }]
       }
-    }
+    },
+    `gatsby-transformer-smbf`
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

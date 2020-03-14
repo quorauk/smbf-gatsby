@@ -10,36 +10,43 @@ import styled from "styled-components"
 const SecondPage = () => {
   const data = useStaticQuery(graphql`
     query FacebookEventsQuery {
-      allFacebookEvents(limit: 9) {
+      allWaistmansEvent(limit: 9) {
         edges {
           node {
+            facebookURL
+            waistmansNumber
             name
+            group_date: start_time(formatString: "YYYY-MM-DD")
             start_date: start_time(formatString: "MMM Do YYYY")
             start_time: start_time(formatString: "ha")
             end_time(formatString: "ha")
             cover { source }
-            internal { content }
           }
         }
       }
       allYoutubeVideo {
-        edges {
-          node {
+        group(field: group_date) {
+          fieldValue
+          nodes {
             id
             title
             videoId
+            group_date
           }
         }
       }
-      allChallongeTournament(filter: {isWaistmanWeeklies: {eq: true}}) {
-        nodes {
-          name
-          game_name
-          waistmansNumber
-          participants {
-            participant {
-              name
-              final_rank
+      allChallongeTournament {
+        group(field: group_date) {
+          fieldValue
+          nodes {
+            name
+            game_name
+            group_date
+            participants {
+              participant {
+                name
+                final_rank
+              }
             }
           }
         }
@@ -54,61 +61,20 @@ const SecondPage = () => {
     justify-content: space-around;
   `
 
-  const groupYoutube = () => (
-    data.allYoutubeVideo.edges.reduce((acc, entry) => {
-      const nameRegex = /Waistman Weeklies #(\d+)/
-      const result = nameRegex.exec(entry.node.title)
-      if (result != null && result.length === 2) {
-        var key = `${result[1]}`
-        var entries = acc[key]
-        if (entries === undefined) {
-          entries = [entry.node]
-        } else {
-          entries.push(entry.node)
-        }
-        acc[key] = entries
-      }
-      return acc
-    }, {})
-  )
-
-  const groupChallonge = () => {
-    return data.allChallongeTournament.nodes.reduce((acc, entry) => {
-      var key = entry.waistmansNumber
-      var entries = acc[key]
-      if (entries === undefined) {
-        entries = [entry]
-      } else {
-        entries.push(entry)
-      }
-      acc[key] = entries
-      return acc
-    }, {})
-  }
-
-  const FBEvents = () => {
-    return data.allFacebookEvents.edges.map((edgedata) => {
-      const nameRegex = /Waistman Weeklies #(\d+)/
-      const result = nameRegex.exec(edgedata.node.name)
-      if (result.length === 2) {
-        edgedata.node.number = result[1]
-      }
-      return edgedata.node
-    })
-  }
-
-  const groupedYoutube = groupYoutube();
-  const groupedChallonge = groupChallonge();
-  console.log(groupedChallonge)
-
   return <Layout>
     <SEO title="Events" />
     <Container>
       <StyledEventContainer>
         {
-          FBEvents().map((event) =>
-            <Event challongeData={groupedChallonge[event.number]} youtubeData={groupedYoutube[event.number]} eventData={event}/>
-          )
+          data.allWaistmansEvent.edges.map((event) => {
+            var challongeData = data.allChallongeTournament.group.find((group) => group.fieldValue === event.node.group_date)
+            var youtubeData = data.allYoutubeVideo.group.find((group) => group.fieldValue === event.node.group_date)
+            return <Event
+              challongeData={challongeData === undefined ? [] : challongeData.nodes}
+              youtubeData={youtubeData === undefined ? [] : youtubeData.nodes}
+              eventData={event.node}
+            />
+          })
         }
       </StyledEventContainer>
     </Container>

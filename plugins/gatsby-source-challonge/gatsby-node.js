@@ -44,25 +44,8 @@ const processTournament = async (actions, id, api_key) => {
 
   const tournament = response.data.tournament
 
-  const nameRegex = /#(\d+)/
-
-  const isWaistmanWeeklies = (tournament) => {
-    const result = nameRegex.exec(tournament.name)
-    if (result !== null && result.length === 2) {
-      return {
-        isWaistmanWeeklies: true,
-        waistmansNumber: result[1]
-      }
-    } else {
-      {
-        isWaistmanWeeklies: false
-      }
-    }
-  }
-
   const tournament_node = {
     ... tournament,
-    ... isWaistmanWeeklies(tournament),
     id: `${tournament.id}`,
     internal: {
       type: `ChallongeTournament`,
