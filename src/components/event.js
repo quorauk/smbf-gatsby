@@ -60,7 +60,7 @@ export default ({ eventData, challongeData, youtubeData }) => {
             <Row>
                 <ButtonBody>
                     <Button variant="secondary" style={{"margin-left": "10px"}} href={eventData.facebookURL}>View Event</Button>
-                    { youtubeData && 
+                    { youtubeData.length > 0 &&
                         <DropdownButton>
                             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                                 Event Videos
