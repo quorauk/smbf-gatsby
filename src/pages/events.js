@@ -10,18 +10,16 @@ import styled from "styled-components"
 const SecondPage = () => {
   const data = useStaticQuery(graphql`
     query FacebookEventsQuery {
-      allWaistmansEvent(limit: 9) {
-        edges {
-          node {
-            facebookURL
-            waistmansNumber
-            name
-            group_date: start_time(formatString: "YYYY-MM-DD")
-            start_date: start_time(formatString: "MMM Do YYYY")
-            start_time: start_time(formatString: "ha")
-            end_time(formatString: "ha")
-            cover { source }
-          }
+      allFacebookEvents(limit: 9) {
+        nodes {
+          facebookURL
+          waistmansNumber
+          name
+          group_date: start_time(formatString: "YYYY-MM-DD")
+          start_date: start_time(formatString: "MMM Do YYYY")
+          start_time: start_time(formatString: "ha")
+          end_time(formatString: "ha")
+          cover { source }
         }
       }
       allYoutubeVideo {
@@ -66,13 +64,13 @@ const SecondPage = () => {
     <Container>
       <StyledEventContainer>
         {
-          data.allWaistmansEvent.edges.map((event) => {
-            var challongeData = data.allChallongeTournament.group.find((group) => group.fieldValue === event.node.group_date)
-            var youtubeData = data.allYoutubeVideo.group.find((group) => group.fieldValue === event.node.group_date)
+          data.allFacebookEvents.nodes.map((event) => {
+            var challongeData = data.allChallongeTournament.group.find((group) => group.fieldValue === event.group_date)
+            var youtubeData = data.allYoutubeVideo.group.find((group) => group.fieldValue === event.group_date)
             return <Event
               challongeData={challongeData === undefined ? [] : challongeData.nodes}
               youtubeData={youtubeData === undefined ? [] : youtubeData.nodes}
-              eventData={event.node}
+              eventData={event}
             />
           })
         }
