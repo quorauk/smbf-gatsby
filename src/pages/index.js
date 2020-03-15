@@ -7,6 +7,7 @@ import SEO from "../components/seo"
 import { Container, Button } from "react-bootstrap"
 import { Card } from "../components/cards"
 import styled from "styled-components"
+import Twitch from "../components/twitch"
 import moment from "moment"
 
 const FullscreenContainer = styled(Container)`
@@ -49,6 +50,7 @@ const IndexPage = () => {
   return (<Layout>
     <FullscreenContainer>
       <SEO title="Home" />
+      <Twitch/>
       <Image eventUpcoming={nextEventUpcoming()} nextEvent={data.facebookEvents}/>
       {
         nextEventUpcoming() &&
