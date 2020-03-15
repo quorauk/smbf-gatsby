@@ -22,34 +22,38 @@ const Twitch = () => {
       });
 
     const EMBED_URL = "https://embed.twitch.tv/embed/v1.js"
-    const props = {
-        targetID: 'twitch-embed',
-        width: '100%',
-        height: '100%',
-        channel: 'sodiumshowdown',
-        autoplay: "false"
-    }
-
     useEffect(() => {
-        const script = document.createElement('script');
-        script.setAttribute(
-          'src',
-          EMBED_URL
-        );
-        script.addEventListener('load', () => {
-            var embed = new window.Twitch.Embed(props.targetID, { ...props });
-            embed.addEventListener(window.Twitch.Embed.VIDEO_READY, () => {
-                var player = embed.getPlayer();
-                player.pause();
+        if (twitchStream !== null) {
+            const props = {
+                targetID: 'twitch-embed',
+                width: '100%',
+                height: '100%',
+                channel: 'sodiumshowdown',
+                autoplay: "false"
+            }
+
+            const script = document.createElement('script');
+            script.setAttribute(
+            'src',
+            EMBED_URL
+            );
+            script.addEventListener('load', () => {
+                var embed = new window.Twitch.Embed(props.targetID, { ...props });
+                embed.addEventListener(window.Twitch.Embed.VIDEO_READY, () => {
+                    var player = embed.getPlayer();
+                    player.pause();
+                });
             });
-        });
-        document.body.appendChild(script);
-    })
+            document.body.appendChild(script);
+        }
+    }, [twitchStream])
     
     useEffect(() => {
         async function getStream() {
             const live = await client.get('/helix/streams?user_login=sodiumshowdown')
-            setStream(live.data.data[0])
+            if (live.data.data.length > 0) {
+                setStream(live.data.data[0])
+            }
         }
         if (twitchStream === null) {
             getStream()
