@@ -60,7 +60,7 @@ const ComponentName = ({ data }) => {
 
 export const query = graphql`
   {
-    allChallongeTournament(sort: {fields: created_at, order: DESC}, limit: 30) {
+    allChallongeTournament(sort: {fields: created_at, order: DESC}, limit: 30, filter: {completed_at: {ne: null}}) {
       group(field: game_name, limit: 1) {
         game: fieldValue
         nodes {
