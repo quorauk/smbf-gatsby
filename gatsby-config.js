@@ -73,7 +73,18 @@ module.exports = {
         policy: [{ userAgent: '*', allow: '/' }]
       }
     },
-    `gatsby-transformer-smbf`
+    `gatsby-transformer-smbf`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Super Miner Battle Farm`,
+        short_name: `SMBF`,
+        start_url: `/`,
+        background_color: `#343a40`,
+        theme_color: `#343a40`,
+        display: `standalone`,
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
