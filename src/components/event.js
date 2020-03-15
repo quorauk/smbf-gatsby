@@ -2,6 +2,7 @@ import React from "react"
 import { Button, Dropdown, Col, Row, Accordion } from "react-bootstrap"
 import { Card } from "./cards"
 import styled from "styled-components"
+import { rankToMedal } from "../utils"
 
 const ButtonBody = styled(Card.Body)`
     display: flex;
@@ -13,17 +14,6 @@ const DropdownButton = styled(Dropdown)`
 `
 
 export default ({ eventData, challongeData, youtubeData }) => {
-    const rankToMedal = (rank) => {
-        switch(rank) {
-            case 1: return "🥇"
-            case 2: return "🥈"
-            case 3: return "🥉"
-            default: return ""
-        }
-    }
-
-    console.log(challongeData)
-
     return (<Card className="flex-col flex-wrap" bg="dark" border="secondary" text="light" style={{'margin-bottom': '20px'}}>
         <Card.Header>{`Waistman Weeklies #${eventData.waistmansNumber}`}</Card.Header>
         <Card.Img variant="top" src={eventData.cover.source} />
