@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Event from "../components/event"
 import { Container } from "react-bootstrap"
+import { Card } from  "../components/cards"
 import styled from "styled-components"
 
 const SecondPage = () => {
@@ -56,13 +57,29 @@ const SecondPage = () => {
     padding-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+  `
+  const description = `
+    The latest fighting game events in Bristol, check out our events, tournament results and videos.
   `
 
   return <Layout>
-    <SEO title="Events" />
+    <SEO title="Events" description={description} />
     <Container>
       <StyledEventContainer>
+        <Card bg="dark" text="light" style={{margin: "20px 0"}}>
+          <Card.Body>
+            <Card.Title>
+              Events
+            </Card.Title>
+            <Card.Text>
+              {description}
+            </Card.Text>
+          </Card.Body>
+        </Card>
         {
           data.allFacebookEvents.nodes.map((event) => {
             var challongeData = data.allChallongeTournament.group.find((group) => group.fieldValue === event.group_date)

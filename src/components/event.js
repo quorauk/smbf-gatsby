@@ -14,15 +14,15 @@ const DropdownButton = styled(Dropdown)`
 `
 
 export default ({ eventData, challongeData, youtubeData }) => {
-    return (<Card className="flex-col flex-wrap" bg="dark" border="secondary" text="light" style={{'margin-bottom': '20px'}}>
+    return (<Card className="flex-row flex-wrap" bg="dark" border="secondary" text="light" style={{'margin-bottom': '20px'}}>
         <Card.Header>{`Waistman Weeklies #${eventData.waistmansNumber}`}</Card.Header>
         <Card.Img variant="top" src={eventData.cover.source} />
-        <Card.Title style={{"padding-left": "20px"}}>
-            {`${eventData.start_date} ${eventData.start_time} - ${eventData.end_time}`}
-        </Card.Title>
-        <Card.Body style={{padding: "0"}}>
+        <Card.Body className="flex-col" style={{padding: "0"}}>
             <Row>
                 <Col>
+                    <Card.Title style={{"padding-left": "20px"}}>
+                        {`${eventData.start_date} ${eventData.start_time} - ${eventData.end_time}`}
+                    </Card.Title>
                     {challongeData.map ((tournament) => {
                         const participants = tournament.participants
                             .filter (({ participant }) => [1,2,3].includes(participant.final_rank))

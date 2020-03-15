@@ -14,14 +14,30 @@ const StyledContainer = styled(Container)`
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-around;
+    max-width: 900px;
 `
 
 const ComponentName = ({ data }) => {
     const gameNodes = data.allChallongeTournament.group.flatMap ( (group) => { return { ...group.nodes[0], game: group.game } } ) 
     gameNodes.sort((a, b) => moment(b.order_by).diff(a.order_by) )
+
+    const description = `
+        Bristols top 3 fighting game players, check out our players for all of our games.
+    `
+
     return <Layout>
-        <SEO title="Rankings" />
+        <SEO title="Rankings" description={description}/>
         <StyledContainer>
+            <Card bg="dark" text="light" style={{margin: "20px 0"}}>
+                <Card.Body>
+                    <Card.Title>
+                        Rankings
+                    </Card.Title>
+                    <Card.Text>
+                    {description}
+                    </Card.Text>
+                </Card.Body>
+            </Card>
             {
                 gameNodes.map ( (node) => {
                         const filteredParticipants = node.participants.filter(({ participant }) => [1,2,3].includes(participant.final_rank))
