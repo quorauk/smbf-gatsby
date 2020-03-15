@@ -31,6 +31,9 @@ const IndexPage = () => {
         end_time(formatString: "ha")
         internal { content }
       }
+      listGames: allChallongeTournament(sort: {fields: created_at, order: DESC}, limit: 20) {
+        games: distinct(field: game_name)
+      }
     }
   `)
 
@@ -64,6 +67,10 @@ const IndexPage = () => {
             Super Miner Battle Farm is a community of fighting game players based in South West England and Wales.
             We are a friendly and welcoming group of people with a good sense of humour and a desire to improve and support the offline scene in the UK.
             We host weekly sessions and monthly tournaments in Bristol, as well as other events in the Wales area.
+          </Card.Text>
+          <Card.Text>
+            <p>We are currently playing:</p>
+            <ul>{data.listGames.games.map ((game) => <li>{game}</li>)}</ul>
           </Card.Text>
         </Card.Body>
     </HomeCard>
