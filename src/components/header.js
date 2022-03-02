@@ -23,7 +23,7 @@ const Header = ({ siteTitle }) => {
           <Nav.Link href="/#about">About</Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link href="https://discord.gg/ud6cAnU">
+          <Nav.Link href="https://discord.com/invite/WNg36S5Pat">
             <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
           </Nav.Link>
           <Nav.Link href="https://www.twitch.tv/sodiumshowdown">
