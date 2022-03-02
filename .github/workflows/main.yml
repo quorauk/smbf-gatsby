@@ -44,7 +44,7 @@ jobs:
     - name: Run a multi-line script
       run: yarn build
       env: # Or as an environment variable
-        CHALLONGE_KEYS: ${{ secrets.SMASHGG_TOKEN }}
+        SMASHGG_TOKEN: ${{ secrets.SMASHGG_TOKEN }}
 
     - name: Build and Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@releases/v3
