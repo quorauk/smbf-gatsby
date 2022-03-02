@@ -76,7 +76,7 @@ const Image = ({ name, eventUpcoming, nextEvent }) => {
 
   const ctaLink = () => {
     if (eventUpcoming) {
-      return `/#next-event`
+      return "/#next-event"
     } else {
       return "https://facebook.com/Superminerbattlefarm"
     }

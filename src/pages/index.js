@@ -22,45 +22,64 @@ const HomeCard = styled(Card)`
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
-    query ClosestEventQuery {
-      facebookEvents {
-        name
-        cover { source }
-        end_date: end_time
-        start_date: start_time(formatString: "MMM Do YYYY")
-        start_time: start_time(formatString: "ha")
-        end_time(formatString: "ha")
-        internal { content }
-      }
-      listGames: allChallongeTournament(sort: {fields: created_at, order: DESC}, limit: 20) {
-        games: distinct(field: game_name)
+    query UpcomingEventsQuery {
+      smashgg {
+        upcoming: tournaments(query:{filter:{ownerId: 826903, upcoming: true}}) {
+          nodes {
+            name
+            url(relative: false)
+            images(type: "banner") {
+              url
+            }
+          }
+        },
+        games: tournaments(query: {filter: {ownerId: 826903} perPage: 10}) {
+           nodes {
+            events {
+              videogame {
+                displayName,
+                id
+              }
+            }
+          }
+        }
       }
     }
   `)
 
   const nextEventUpcoming = () => {
-    return moment().isBefore(moment(data.facebookEvents.end_date))
+    return data.smashgg.upcoming.nodes.length > 0
   }
 
-  const ctaLink = () => {
-    const id = JSON.parse(data.facebookEvents.internal.content).id
-    return `https://facebook.com/events/${id}`
+  const nextEvent = () => {
+    console.log(data)
+    return data.smashgg.upcoming.nodes[0]
   }
+
+  const currentlyPlayingGameNames = () => {
+    var events = data.smashgg.games.nodes.flatMap((tournament) => tournament.events)
+    console.log(events)
+    var games = events.filter((event) => event != null).map((event) => event.videogame.displayName)
+    console.log(games)
+    return [...new Set(games)];
+  }
+
+  currentlyPlayingGameNames()
 
   return (<Layout>
     <FullscreenContainer>
       <SEO title="Home" />
       <Twitch/>
-      <Image eventUpcoming={nextEventUpcoming()} nextEvent={data.facebookEvents}/>
+      <Image eventUpcoming={nextEventUpcoming()} nextEvent={nextEvent()}/>
       {
         nextEventUpcoming() &&
           (<HomeCard id="next-event" bg="dark" border="secondary" text="light" style={{ 'max-width': '1000px' }}>
-            <Card.Img variant="top" src={`${data.facebookEvents.cover.source}`} />
+            <Card.Img variant="top" src={nextEvent().images[0].url} />
             <Card.Body style={{'text-align': 'center'}}>
-              <Card.Title>Next Event: {`${data.facebookEvents.name}`}</Card.Title>
-              <Button href={ctaLink()} variant="outline-light">View On Facebook</Button>
+              <Card.Title>Next Event: {nextEvent().name}</Card.Title>
+              <Button href={nextEvent().url} variant="outline-light">View On Smash.GG</Button>
             </Card.Body>
-          </HomeCard>)
+          </HomeCard>) 
       }
       <HomeCard id="about" bg="dark" border="secondary" text="light" style={{ 'max-width': '1000px' }}>
         <Card.Body>
@@ -72,7 +91,7 @@ const IndexPage = () => {
           </Card.Text>
           <Card.Text>
             <p>We are currently playing:</p>
-            <ul>{data.listGames.games.map ((game) => <li>{game}</li>)}</ul>
+            <ul>{currentlyPlayingGameNames().map ((game) => <li>{game}</li>)}</ul>
           </Card.Text>
         </Card.Body>
     </HomeCard>

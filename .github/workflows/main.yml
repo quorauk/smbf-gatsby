@@ -44,10 +44,7 @@ jobs:
     - name: Run a multi-line script
       run: yarn build
       env: # Or as an environment variable
-        FACEBOOK_KEY: ${{ secrets.FACEBOOK_KEY }}
-        YOUTUBE_KEY: ${{ secrets.YOUTUBE_KEY }}
-        YOUTUBE_CHANNEL_ID: ${{ secrets.YOUTUBE_CHANNEL_ID }}
-        CHALLONGE_KEYS: ${{ secrets.CHALLONGE_KEYS }}
+        CHALLONGE_KEYS: ${{ secrets.SMASHGG_TOKEN }}
 
     - name: Build and Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@releases/v3

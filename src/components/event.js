@@ -49,21 +49,7 @@ export default ({ eventData, challongeData, youtubeData }) => {
             </Row>
             <Row>
                 <ButtonBody>
-                    <Button variant="secondary" style={{"margin-left": "10px"}} href={eventData.facebookURL}>View Event</Button>
-                    { youtubeData.length > 0 &&
-                        <DropdownButton>
-                            <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-                                Event Videos
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu id="dropdown-basic-button" title="Dropdown button">
-                                { youtubeData.map((video) =>
-                                    <Dropdown.Item href={`https://www.youtube.com/watch?v=${video.videoId}`}>
-                                    {video.title}
-                                </Dropdown.Item>
-                                ) }
-                            </Dropdown.Menu>
-                        </DropdownButton>
-                    }
+                    <Button variant="secondary" style={{"margin-left": "10px"}} href={eventData.url}>View Event</Button>
                 </ButtonBody>
             </Row>
         </Card.Body>
