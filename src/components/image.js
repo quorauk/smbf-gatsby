@@ -37,19 +37,19 @@ const HeroTextContainer = styled.div`
   text-align: center;
   color: #FFFFFF;
   padding: 20px;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Permanent Marker', initial;
 `
 
 const HeroTitle = styled.h1`
   margin: 0 auto;
   font-size: 72px;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Permanent Marker', initial;
 `
 
 const HeroSubTitle = styled.h2`
   margin: 0 auto;
   font-size: 48px;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Permanent Marker', initial;
 `
 
 const CTAs = styled.div`
