@@ -66,7 +66,7 @@ module.exports = {
         // Field under which the remote schema will be accessible. You'll use this in your Gatsby query
         fieldName: "smashgg",
         // Url to query from
-        url: "https://api.smash.gg/gql/alpha",
+        url: "https://api.start.gg/gql/alpha",
         headers: {
           // Learn about environment variables: https://gatsby.dev/env-vars
           Authorization: `Bearer ${process.env.SMASHGG_TOKEN}`,
